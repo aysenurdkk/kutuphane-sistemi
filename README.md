@@ -1,4 +1,4 @@
-# 📚 Kütüphane Yönetim Sistemi
+# Kütüphane Yönetim Sistemi
 
 Öğrenci ve admin rollerini destekleyen, kitap ödünç alma/iade işlemlerini yöneten full-stack web uygulaması.
 

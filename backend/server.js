@@ -34,7 +34,11 @@ app.use(bulunamadiHatasi);
 // Merkezi hata yönetimi (en son eklenmeli)
 app.use(hataYonetici);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Sunucu ${PORT} portunda çalışıyor`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Sunucu ${PORT} portunda çalışıyor`);
+  });
+}
+
+module.exports = app;

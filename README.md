@@ -103,8 +103,12 @@ npm run dev
 ```
 
 Uygulama adresleri:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
+- **Yerel (Local):**
+  - Frontend: `http://localhost:3000`
+  - Backend API: `http://localhost:5000`
+- **Canlı (Production - Vercel):**
+  - Arayüz (Frontend): [https://kutuphane-sistemi-frontend.vercel.app](https://kutuphane-sistemi-frontend.vercel.app)
+  - Sunucu (Backend API): [https://kutuphane-sistemi-backend.vercel.app](https://kutuphane-sistemi-backend.vercel.app)
 
 ---
 

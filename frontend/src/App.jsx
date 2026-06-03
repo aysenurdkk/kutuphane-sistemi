@@ -17,7 +17,14 @@ function App() {
           <Navbar />
           <main className="main-content">
             <Routes>
-              <Route path="/" element={<AnaSayfa />} />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <AnaSayfa />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/giris" element={<Giris />} />
               <Route path="/kayit" element={<Kayit />} />
               <Route

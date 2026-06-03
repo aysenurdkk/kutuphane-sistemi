@@ -7,7 +7,7 @@ const baglanti = async () => {
     console.log(`MongoDB bağlandı: ${conn.connection.host}`);
   } catch (hata) {
     console.error(`MongoDB bağlantı hatası: ${hata.message}`);
-    process.exit(1);
+    throw hata;
   }
 };
 

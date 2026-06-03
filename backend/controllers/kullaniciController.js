@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Kullanici = require('../models/Kullanici');
 
 const tokenOlustur = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_SURE });
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_SURE || '7d' });
 };
 
 // @desc    Yeni kullanıcı kaydı

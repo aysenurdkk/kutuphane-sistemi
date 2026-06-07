@@ -80,6 +80,26 @@ const AnaSayfa = () => {
     <>
       {/* KATEGORİ + İÇERİK */}
       <div className="container">
+        <div className="page-header">
+          <div className="page-header__info">
+            <h1>
+              {kullanici
+                ? `Merhaba, ${kullanici.ad}`
+                : 'Kütüphane'}
+            </h1>
+            <p>
+              {kullanici?.rol === 'admin'
+                ? 'Koleksiyonu yönetin, kitap ekleyin veya düzenleyin.'
+                : 'Binlerce kitap arasından ödünç almak istediğinizi bulun.'}
+            </p>
+          </div>
+          {kullanici?.rol === 'admin' && (
+            <button className="btn btn-primary" onClick={() => setFormModal(true)}>
+              + Yeni Kitap Ekle
+            </button>
+          )}
+        </div>
+
         <form className="arama-bar" onSubmit={handleAramaGonder}>
           <input
             className="form-input"
@@ -108,14 +128,7 @@ const AnaSayfa = () => {
             {kategori === 'Tümü' ? 'Tüm Kitaplar' : kategori}
             {arama && ` — "${arama}" araması`}
           </h2>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span>{kitaplar.length} kitap</span>
-            {kullanici?.rol === 'admin' && (
-              <button className="btn btn-primary btn-sm" onClick={() => setFormModal(true)}>
-                + Yeni Kitap
-              </button>
-            )}
-          </div>
+          <span>{kitaplar.length} kitap</span>
         </div>
 
         {yukleniyor ? (

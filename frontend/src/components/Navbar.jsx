@@ -42,11 +42,9 @@ const Navbar = () => {
             <div className="navbar__auth">
               {kullanici ? (
                 <>
-                  {kullanici.rol !== 'admin' && (
-                    <NavLink to="/profil" className={linkClass} onClick={menuKapat}>
-                      {kullanici.ad} {kullanici.soyad}
-                    </NavLink>
-                  )}
+                  <NavLink to="/profil" className={linkClass} onClick={menuKapat}>
+                    {kullanici.ad} {kullanici.soyad}
+                  </NavLink>
                   <button className="btn btn-ghost btn-sm" onClick={handleCikis}>
                     Çıkış
                   </button>

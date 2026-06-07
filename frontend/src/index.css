@@ -24,8 +24,10 @@
 
   --bg:            #FAF7F2;
   --bg-dark:       #f0e6db;
+  --bg-secondary:  #f5ede8;
   --white:         #ffffff;
   --text:          #2d1a1a;
+  --text-primary:  #2d1a1a;
   --text-body:     #4a3535;
   --text-light:    #7a5f5f;
   --text-muted:    #a08888;

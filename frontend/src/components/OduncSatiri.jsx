@@ -14,8 +14,11 @@ const OduncSatiri = ({ odunc, oduncIade, adminGorunu = false, onSil }) => {
 
   const handleIade = async () => {
     setYukleniyor(true);
-    await oduncIade(odunc._id);
-    setYukleniyor(false);
+    try {
+      await oduncIade(odunc._id);
+    } finally {
+      setYukleniyor(false);
+    }
   };
 
   const aktif = odunc.durum === 'oduncte';

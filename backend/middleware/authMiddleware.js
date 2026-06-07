@@ -1,32 +1,27 @@
-const jwt = require('jsonwebtoken');
-const Kullanici = require('../models/Kullanici');
+import jwt from 'jsonwebtoken'
+import Kullanici from '../models/Kullanici.js'
 
-const koruma = async (req, res, next) => {
-  let token;
-
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+export const koruma = async (req, res, next) => {
+    const token = req.headers.authorization?.split(' ')[1]
+    if (!token) return res.status(401).json({ mesaj: 'Token bulunamadı' })
     try {
-      token = req.headers.authorization.split(' ')[1];
-      const cozulmus = jwt.verify(token, process.env.JWT_SECRET);
-      req.kullanici = await Kullanici.findById(cozulmus.id).select('-sifre');
-      if (!req.kullanici) {
-        return res.status(401).json({ basarili: false, mesaj: 'Kullanıcı bulunamadı' });
-      }
-      next();
-    } catch (hata) {
-      return res.status(401).json({ basarili: false, mesaj: 'Geçersiz token' });
+        const { id } = jwt.verify(token, process.env.JWT_SECRET)
+        req.kullanici = await Kullanici.findById(id).select('-sifre')
+        next()
+    } catch {
+        res.status(401).json({ mesaj: 'Geçersiz token' })
     }
-  } else {
-    return res.status(401).json({ basarili: false, mesaj: 'Token bulunamadı, yetkilendirme gerekli' });
-  }
-};
+}
 
-const adminKoruma = (req, res, next) => {
-  if (req.kullanici && req.kullanici.rol === 'admin') {
-    next();
-  } else {
-    res.status(403).json({ basarili: false, mesaj: 'Bu işlem için admin yetkisi gerekli' });
-  }
-};
+export const adminKoruma = (req, res, next) => {
+    const kullanici = req.kullanici
 
-module.exports = { koruma, adminKoruma };
+    if (kullanici && kullanici.rol === 'admin') {
+        next()
+
+    } else {
+        return res.status(403).json({
+            mesaj: 'Admin yetkisi gerekli'
+        })
+    }
+}

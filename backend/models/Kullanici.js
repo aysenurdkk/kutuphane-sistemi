@@ -1,12 +1,7 @@
-// Kullanıcı modeli - öğrenci ve admin rollerini içerir
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
 
-const kullaniciSemasi = new mongoose.Schema(
-  {
-    _id: {
-      type: Number,
-    },
+const kullaniciSemasi = new mongoose.Schema({
     ad: {
       type: String,
       required: [true, 'Ad zorunludur'],
@@ -38,35 +33,22 @@ const kullaniciSemasi = new mongoose.Schema(
       enum: ['ogrenci', 'admin'],
       default: 'ogrenci',
     },
-  },
-  { timestamps: false }
-);
+})
 
-// Kayıt öncesi şifreyi hashle ve _id yi sıralı sayı olarak otomatik ata
 kullaniciSemasi.pre('save', async function (next) {
-  if (this.isNew) {
-    try {
-      const maxKullanici = await mongoose.model('Kullanici').findOne({}, {}, { sort: { _id: -1 } });
-      this._id = maxKullanici && typeof maxKullanici._id === 'number' ? maxKullanici._id + 1 : 1;
-    } catch (hata) {
-      return next(hata);
-    }
-  }
-  
-  if (!this.isModified('sifre')) return next();
-  
+  if (!this.isModified('sifre')) return next()
+
   try {
-    const tuz = await bcrypt.genSalt(10);
-    this.sifre = await bcrypt.hash(this.sifre, tuz);
-    next();
+    const tuz = await bcrypt.genSalt(10)
+    this.sifre = await bcrypt.hash(this.sifre, tuz)
+    next()
   } catch (hata) {
-    next(hata);
+    next(hata)
   }
-});
+})
 
-// Şifre doğrulama metodu
 kullaniciSemasi.methods.sifreKontrol = async function (girilenSifre) {
-  return await bcrypt.compare(girilenSifre, this.sifre);
-};
+  return await bcrypt.compare(girilenSifre, this.sifre)
+}
 
-module.exports = mongoose.model('Kullanici', kullaniciSemasi);
+export default mongoose.model('Kullanici', kullaniciSemasi)

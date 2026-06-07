@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 import Spinner from '../components/Spinner';
 import { GozAcik, GozKapali, KitapIkon } from '../components/Ikonlar';
@@ -8,6 +9,7 @@ import { GozAcik, GozKapali, KitapIkon } from '../components/Ikonlar';
 const Giris = () => {
   const { kullanici, girisYap } = useAuth();
   const navigate = useNavigate();
+  const { toastEkle } = useToast();
 
   const [form, setForm]           = useState({ email: '', sifre: '' });
   const [hatalar, setHatalar]     = useState({});

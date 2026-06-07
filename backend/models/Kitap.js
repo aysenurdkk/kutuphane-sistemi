@@ -1,11 +1,6 @@
-// Kitap modeli - kütüphanedeki kitapları temsil eder
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
-const kitapSemasi = new mongoose.Schema(
-  {
-    _id: {
-      type: Number,
-    },
+const kitapSemasi = new mongoose.Schema({
     kitapAdi: {
       type: String,
       required: [true, 'Kitap adı zorunludur'],
@@ -33,32 +28,12 @@ const kitapSemasi = new mongoose.Schema(
       type: String,
       maxlength: [500, 'Açıklama en fazla 500 karakter olabilir'],
     },
-    kapakResmi: {
-      type: String,
-      default: null,
-    },
+    kapakResmi: { type: String, default: null },
     sayfaSayisi: {
       type: Number,
       min: [1, 'Sayfa sayısı 1 den az olamaz'],
       default: null,
     },
-  },
-  { timestamps: false }
-);
+})
 
-// Yeni kitap eklendiğinde _id yi sıralı sayı olarak otomatik ata
-kitapSemasi.pre('save', async function (next) {
-  if (this.isNew) {
-    try {
-      const maxKitap = await mongoose.model('Kitap').findOne({}, {}, { sort: { _id: -1 } });
-      this._id = maxKitap && typeof maxKitap._id === 'number' ? maxKitap._id + 1 : 1;
-      next();
-    } catch (hata) {
-      next(hata);
-    }
-  } else {
-    next();
-  }
-});
-
-module.exports = mongoose.model('Kitap', kitapSemasi);
+export default mongoose.model('Kitap', kitapSemasi)

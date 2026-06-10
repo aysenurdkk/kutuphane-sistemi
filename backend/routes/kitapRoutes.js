@@ -71,4 +71,33 @@ router.delete('/:id', koruma, adminKoruma, async (req, res, next) => {
   }
 })
 
+// =================================================================
+// 📝 SINAV SORU HAVUZU KODLARI (Kitap İşlemleri)
+// =================================================================
+
+// TODO: Soru 10 - Middleware Validasyon Tanımı
+const kitapValidasyon = (req, res, next) => {
+  // Sınavda burayı yazacaksınız
+}
+
+// TODO: Soru 2 - Endpoint ile veri ekleme (POST)
+router.post('/sinav-ekle', kitapValidasyon, async (req, res, next) => {
+  // Sınavda burayı yazacaksınız
+})
+
+// TODO: Soru 8 - Endpoint ile veri listeleme (GET)
+router.get('/sinav-liste', async (req, res, next) => {
+  // Sınavda burayı yazacaksınız
+})
+
+// TODO: Soru 6 - Endpoint ile veri güncelleme (PUT)
+router.put('/sinav-guncelle/:id', async (req, res, next) => {
+  // Sınavda burayı yazacaksınız
+})
+
+// TODO: Soru 4 - Endpoint ile veri silme (DELETE)
+router.delete('/sinav-sil/:id', async (req, res, next) => {
+  // Sınavda burayı yazacaksınız
+})
+
 export default router
